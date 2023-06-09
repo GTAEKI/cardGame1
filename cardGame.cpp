@@ -15,12 +15,15 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 using namespace std;
 void swab(int* ptr, int* ptr2);
 
 int main()
 {   
+    setbuf(stdout, NULL); //sleep을 위한 버퍼링 비활성화
+
     // 주석 처리된 변수는 player1 player2 카드 합 대소비교 문제
     //int player1_Arr[2] = {0,};
     //int player2_Arr[2] = {0,};
@@ -260,10 +263,19 @@ int main()
         printf("범위 밖에 있다고 생각하면 N \n");
         cin >> check;
 
+        printf("당신의 현재 포인트는 %d입니다.\n",playerPoint);
         printf("얼마를 베팅하시겠습니까?\n");
         cin >> bet;
 
         printf(" 플레이어가 카드를 뽑습니다.\n");
+        
+        for(int i = 0; i<3;i++)
+        {
+            sleep(1);
+            printf(".");
+        }
+        printf("\n");
+
         printf(" ⌈⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⌉\n");
         printf(" ⎮ %2s %2s        ⎮\n",markDeck[p2_mark1-1],numberDeck[p2_cardNumber1-1]);
         printf(" ⎮             ⎮\n");
@@ -278,22 +290,22 @@ int main()
         {
             playerPoint += bet*2;
             printf("정답입니다. 플레이어 WIN\n");
-            printf("베팅점수의 두배 포인트를 얻습니다.\n");
+            printf("베팅점수의 두배 포인트를 얻습니다.\n\n");
         }
         else if(whoWin ==2 && (check == 'N'||check =='n'))
         {
             playerPoint += bet*2;
             printf("정답입니다. 플레이어 WIN\n");
-            printf("베팅점수의 두배 포인트를 얻습니다.\n");
+            printf("베팅점수의 두배 포인트를 얻습니다.\n\n");
         }
         else
         {
             playerPoint -= bet;
             printf("오답입니다. 컴퓨터 WIN\n");
-            printf("베팅점수만큼 포인트를 잃습니다.\n");
+            printf("베팅점수만큼 포인트를 잃습니다.\n\n");
         }
 
-        printf("당신의 현재 포인트는 %d 입니다.\n",playerPoint);
+        printf("당신의 현재 포인트는 %d 입니다.\n\n",playerPoint);
 
         if(playerPoint >= setPoint)
         {
