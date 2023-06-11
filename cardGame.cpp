@@ -18,7 +18,7 @@
 #include <unistd.h>
 
 using namespace std;
-void swab(int* ptr, int* ptr2);
+void swap(int* ptr, int* ptr2);
 
 int main()
 {   
@@ -41,7 +41,7 @@ int main()
     int p2_cardNumber1=0,p2_cardNumber2=0,p2_mark1=0,p2_mark2=0;
     char numberDeck[13][3] = {"A","2","3","4","5","6","7","8","9","10","J","Q","K"};
     char markDeck[4][7] = {"♣︎","♥︎","♦︎","♠︎"};
-    int bet = 0, playerPoint = 10000, setPoint = 20000, finalPoint = 0;
+    int bet = 0, playerPoint = 10000, setPoint = 25000, finalPoint = 0;
     char check = '0';
 
     while(1)
@@ -185,8 +185,8 @@ int main()
         // 큰 숫자를 카진 카드가 뒤로 오도록
         if(p1_cardNumber1 > p1_cardNumber2)
         {
-            swab(&p1_cardNumber1,&p1_cardNumber2);
-            swab(&p1_mark1,&p1_mark2);
+            swap(&p1_cardNumber1,&p1_cardNumber2);
+            swap(&p1_mark1,&p1_mark2);
         }
 
 
@@ -249,6 +249,11 @@ int main()
 
         //출력
         printf(" 컴퓨터가 카드를 두번 뽑습니다.\n");
+        for(int i = 0; i<2;i++)
+        {
+            sleep(1);
+            printf(".\n");
+        }
         printf(" ⌈⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⌉    ⌈⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⌉\n");
         printf(" ⎮ %2s %2s        ⎮    ⎮ %2s %2s        ⎮\n",markDeck[p1_mark1-1],numberDeck[p1_cardNumber1-1],markDeck[p1_mark2-1],numberDeck[p1_cardNumber2-1]);
         printf(" ⎮             ⎮    ⎮             ⎮\n");
@@ -269,7 +274,7 @@ int main()
 
         printf(" 플레이어가 카드를 뽑습니다.\n");
         
-        for(int i = 0; i<3;i++)
+        for(int i = 0; i<2;i++)
         {
             sleep(1);
             printf(".");
@@ -286,15 +291,21 @@ int main()
         printf(" ⌊⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⎽⌋\n");
         printf("\n");
 
+        for(int i = 0; i<1;i++)
+        {
+            sleep(1);
+            printf(".");
+        }
+
         if(whoWin == 1 && (check == 'Y'|| check =='y'))
         {
-            playerPoint += bet*2;
+            playerPoint += bet;
             printf("정답입니다. 플레이어 WIN\n");
             printf("베팅점수의 두배 포인트를 얻습니다.\n\n");
         }
         else if(whoWin ==2 && (check == 'N'||check =='n'))
         {
-            playerPoint += bet*2;
+            playerPoint += bet;
             printf("정답입니다. 플레이어 WIN\n");
             printf("베팅점수의 두배 포인트를 얻습니다.\n\n");
         }
@@ -328,7 +339,7 @@ int main()
 
     if(finalPoint ==1)
     {
-        printf("포인트가 20000점 이상입니다. 축하합니다. 최종적으로 게임에 승리하셨습니다 \n");
+        printf("포인트가 %d점 이상입니다. 축하합니다. 최종적으로 게임에 승리하셨습니다 \n",setPoint);
     }
     else if(finalPoint == 2)
     {
@@ -337,7 +348,7 @@ int main()
     
 }
 
-void swab(int* ptr, int* ptr2)
+void swap(int* ptr, int* ptr2)
 {
     int temp = 0;
     temp = *ptr;
